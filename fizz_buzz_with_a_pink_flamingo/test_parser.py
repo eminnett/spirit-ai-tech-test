@@ -29,7 +29,6 @@ class ParserTest(unittest.TestCase):
         self.assertTrue(parser.is_fibonacci(8))
         self.assertTrue(parser.is_fibonacci(13))
         self.assertTrue(parser.is_fibonacci(21))
-        34, 55, 89
 
         self.assertFalse(parser.is_fibonacci(4))
         self.assertFalse(parser.is_fibonacci(6))
