@@ -28,7 +28,7 @@ class Parser:
         if is_multiple_of_three:
             return "Fizz"
         
-        return n
+        return str(n)
 
     def generate_output(self):
         print("This will ultimately return the parsed FizzBuzz With a Pink Flamingo output.")
