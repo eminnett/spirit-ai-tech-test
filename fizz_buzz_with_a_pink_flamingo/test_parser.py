@@ -52,11 +52,11 @@ class ParserTest(unittest.TestCase):
         self.assertTrue(parser.int_to_phrase(11) == "11")
         self.assertTrue(parser.int_to_phrase(15) == "FizzBuzz")
         self.assertTrue(parser.int_to_phrase(6765) == "Pink Flamingo")
-        
+
     def test_generate_output(self):
         parser = Parser(0, 10)
         short_output = "Flamingo, Flamingo, Flamingo, Flamingo, 4, Flamingo, Fizz, 7, Flamingo, Fizz, Buzz"
         self.assertTrue(parser.generate_output() == short_output)
-
+        
 if __name__ == '__main__':
     unittest.main()

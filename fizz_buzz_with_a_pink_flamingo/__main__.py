@@ -16,4 +16,4 @@ if len(sys.argv) > 1:
 
 start, end = min(start, end), max(start, end)
 
-Parser(start, end).generate_output()
+Parser(start, end).print_output()

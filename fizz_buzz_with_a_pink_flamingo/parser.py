@@ -39,3 +39,6 @@ class Parser:
     def generate_output(self):
         sequence = [self.int_to_phrase(n) for n in self.range]
         return ', '.join(sequence)
+
+    def print_output(self):
+        print(self.generate_output())
