@@ -37,4 +37,5 @@ class Parser:
         return str(n)
 
     def generate_output(self):
-        print("This will ultimately return the parsed FizzBuzz With a Pink Flamingo output.")
+        sequence = [self.int_to_phrase(n) for n in self.range]
+        return ', '.join(sequence)
