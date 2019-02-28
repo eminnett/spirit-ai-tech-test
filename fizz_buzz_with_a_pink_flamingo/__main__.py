@@ -1,8 +1,10 @@
 import sys
 from parser import Parser # pylint: disable=no-name-in-module
 
-if 'fizz_buzz_with_a_pink_flamingo' in sys.argv:
-    sys.argv.remove('fizz_buzz_with_a_pink_flamingo')
+namespaces = ['fizz_buzz_with_a_pink_flamingo', '.']
+for namespace in namespaces:
+    if namespace in sys.argv:
+        sys.argv.remove(namespace)
 
 start = 0
 end = 100
