@@ -22,6 +22,7 @@ class ParserTest(unittest.TestCase):
     def test_is_fibonacci(self):
         parser = Parser()
 
+        self.assertTrue(parser.is_fibonacci(0))
         self.assertTrue(parser.is_fibonacci(1))
         self.assertTrue(parser.is_fibonacci(2))
         self.assertTrue(parser.is_fibonacci(3))
@@ -39,6 +40,7 @@ class ParserTest(unittest.TestCase):
     def test_int_to_phrase(self):
         parser = Parser()
 
+        self.assertTrue(parser.int_to_phrase(0) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(1) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(3) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(5) == "Flamingo")
