@@ -42,6 +42,7 @@ class ParserTest(unittest.TestCase):
 
         self.assertTrue(parser.int_to_phrase(0) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(1) == "Flamingo")
+        self.assertTrue(parser.int_to_phrase(2) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(3) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(5) == "Flamingo")
         self.assertTrue(parser.int_to_phrase(6) == "Fizz")
