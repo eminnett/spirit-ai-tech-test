@@ -29,6 +29,7 @@ class ParserTest(unittest.TestCase):
         self.assertTrue(parser.is_fibonacci(8))
         self.assertTrue(parser.is_fibonacci(13))
         self.assertTrue(parser.is_fibonacci(21))
+        34, 55, 89
 
         self.assertFalse(parser.is_fibonacci(4))
         self.assertFalse(parser.is_fibonacci(6))
@@ -36,6 +37,19 @@ class ParserTest(unittest.TestCase):
         self.assertFalse(parser.is_fibonacci(9))
         self.assertFalse(parser.is_fibonacci(10))
 
+    def test_int_to_phrase(self):
+        parser = Parser()
+
+        self.assertTrue(parser.int_to_phrase(1) == "Flamingo")
+        self.assertTrue(parser.int_to_phrase(3) == "Flamingo")
+        self.assertTrue(parser.int_to_phrase(5) == "Flamingo")
+        self.assertTrue(parser.int_to_phrase(6) == "Fizz")
+        self.assertTrue(parser.int_to_phrase(7) == 7)
+        self.assertTrue(parser.int_to_phrase(9) == "Fizz")
+        self.assertTrue(parser.int_to_phrase(10) == "Buzz")
+        self.assertTrue(parser.int_to_phrase(11) == 11)
+        self.assertTrue(parser.int_to_phrase(15) == "FizzBuzz")
+        self.assertTrue(parser.int_to_phrase(6765) == "Pink Flamingo")
         
 
 if __name__ == '__main__':
