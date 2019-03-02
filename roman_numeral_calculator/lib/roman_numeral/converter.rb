@@ -15,7 +15,7 @@ module RomanNumeral
       ['X', 10],
       ['V', 5],
       ['I', 1]
-    ]
+    ].freeze
 
     def self.to_integer(roman_numeral)
       validate_string(roman_numeral)
@@ -33,7 +33,7 @@ module RomanNumeral
           next_mapping = NUMERAL_MAPPING.assoc(next_letter)
           next_value = next_mapping[1]
 
-          if next_value == 5 * value || next_value == 10 * value
+          if [5 * value, 10 * value].include? next_value
             integer -= value
             next
           end
@@ -52,20 +52,20 @@ module RomanNumeral
         leading_five = value.to_s[0] == '5'
 
         if ratio >= 1
-          ratio.floor.times do 
+          ratio.floor.times do
             roman_numeral += letter
             integer -= value
           end
         end
 
         ratio = integer.to_f / value
-        if (leading_five && ratio >= 0.8) || (!leading_five && ratio >= 0.9)
-          skip_index = leading_five ? 1 : 2
-          subtraction_letter = NUMERAL_MAPPING[i + skip_index][0]
-          term = subtraction_letter + letter
-          roman_numeral += term
-          integer -= to_integer(term)
-        end
+        next unless (leading_five && ratio >= 0.8) || (!leading_five && ratio >= 0.9)
+
+        skip_index = leading_five ? 1 : 2
+        subtraction_letter = NUMERAL_MAPPING[i + skip_index][0]
+        term = subtraction_letter + letter
+        roman_numeral += term
+        integer -= to_integer(term)
       end
 
       roman_numeral
