@@ -31,7 +31,9 @@ module RomanNumeral
         if i < letters.count - 1
           next_letter = roman_numeral[i + 1]
           next_mapping = NUMERAL_MAPPING.assoc(next_letter)
-          if NUMERAL_MAPPING.index(mapping) == NUMERAL_MAPPING.index(next_mapping) + 1
+          next_value = next_mapping[1]
+
+          if next_value == 5 * value || next_value == 10 * value
             integer -= value
             next
           end
@@ -49,18 +51,24 @@ module RomanNumeral
         ratio = integer.to_f / value
         leading_five = value.to_s[0] == '5'
 
-        if (leading_five && ratio == 0.8) || (!leading_five && ratio == 0.9)
-          next_letter = NUMERAL_MAPPING[i + 1][0]
-          roman_numeral += next_letter + letter
-          return roman_numeral
-        elsif ratio >= 1
+        if ratio >= 1
           ratio.floor.times do 
             roman_numeral += letter
             integer -= value
           end
-          return roman_numeral if integer.zero?
+        end
+
+        ratio = integer.to_f / value
+        if (leading_five && ratio == 0.8) || (!leading_five && ratio == 0.9)
+          skip_index = leading_five ? 1 : 2
+          subtraction_letter = NUMERAL_MAPPING[i + skip_index][0]
+          term = subtraction_letter + letter
+          roman_numeral += term
+          integer -= to_integer(term)
         end
       end
+
+      roman_numeral
     end
   end
 end
