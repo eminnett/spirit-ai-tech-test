@@ -59,7 +59,7 @@ module RomanNumeral
         end
 
         ratio = integer.to_f / value
-        if (leading_five && ratio == 0.8) || (!leading_five && ratio == 0.9)
+        if (leading_five && ratio >= 0.8) || (!leading_five && ratio >= 0.9)
           skip_index = leading_five ? 1 : 2
           subtraction_letter = NUMERAL_MAPPING[i + skip_index][0]
           term = subtraction_letter + letter
