@@ -5,3 +5,7 @@ Metrics/BlockLength:
 # Commonly used screens these days easily fit more than 80 characters.
 Metrics/LineLength:
   Max: 100
+
+# This forces ridiculous code alignment when used in combination with `private_class_method`.
+Layout/RescueEnsureAlignment:
+  Enabled: false

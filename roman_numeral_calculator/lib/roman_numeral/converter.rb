@@ -34,19 +34,6 @@ module RomanNumeral
       integer
     end
 
-    def self.letter_value(roman_numeral, letter, index, num_letters)
-      value = NUMERAL_MAPPING.assoc(letter)[1]
-
-      if index < num_letters - 1
-        next_letter = roman_numeral[index + 1]
-        next_value = NUMERAL_MAPPING.assoc(next_letter)[1]
-        return -value if [5 * value, 10 * value].include? next_value
-      end
-
-      value
-    end
-    private_class_method :letter_value
-
     def self.to_roman_numeral(integer)
       validate_integer(integer)
       roman_numeral = ''
@@ -57,7 +44,19 @@ module RomanNumeral
       roman_numeral
     end
 
-    def self.handle_additive_letters(roman_numeral, integer, (letter, value))
+    private_class_method def self.letter_value(roman_numeral, letter, index, num_letters)
+      value = NUMERAL_MAPPING.assoc(letter)[1]
+
+      if index < num_letters - 1
+        next_letter = roman_numeral[index + 1]
+        next_value = NUMERAL_MAPPING.assoc(next_letter)[1]
+        return -value if [5 * value, 10 * value].include? next_value
+      end
+
+      value
+    end
+
+    private_class_method def self.handle_additive_letters(roman_numeral, integer, (letter, value))
       ratio = integer.to_f / value
       return [roman_numeral, integer] if ratio < 1
 
@@ -67,23 +66,20 @@ module RomanNumeral
       end
       [roman_numeral, integer]
     end
-    private_class_method :handle_additive_letters
 
-    def self.handle_subtractive_letters(roman_numeral, integer, (letter, value), index)
+    private_class_method def self.handle_subtractive_letters(roman_numeral, integer, (letter, value), index)
       ratio = integer.to_f / value
       leading_five = value.to_s[0] == '5'
-      return [roman_numeral, integer] unless subtraction_required(leading_five, ratio)
+      return [roman_numeral, integer] unless subtraction_required?(leading_five, ratio)
 
       skip_index = leading_five ? 1 : 2
       subtraction_letter = NUMERAL_MAPPING[index + skip_index][0]
       term = subtraction_letter + letter
       [roman_numeral + term, integer - to_integer(term)]
     end
-    private_class_method :handle_subtractive_letters
 
-    def self.subtraction_required(leading_five, ratio)
+    private_class_method def self.subtraction_required?(leading_five, ratio)
       (leading_five && ratio >= 0.8) || (!leading_five && ratio >= 0.9)
     end
-    private_class_method :subtraction_required
   end
 end
