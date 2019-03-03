@@ -1,7 +1,8 @@
 import sys
 from parser import Parser # pylint: disable=no-name-in-module
 
-namespaces = ['fizz_buzz_with_a_pink_flamingo', '.']
+folder_name = 'fizzbuzz_with_a_pink_flamingo'
+namespaces = ['../{}'.format(folder_name), folder_name, '.']
 for namespace in namespaces:
     if namespace in sys.argv:
         sys.argv.remove(namespace)
