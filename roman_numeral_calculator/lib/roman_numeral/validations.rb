@@ -2,8 +2,12 @@
 
 module RomanNumeral
   module Validations
-    def validate_expression(expression)
-      return true if %r{^[IVXLCDM\(\)\^/\*\+\-\s]+$}.match?(expression)
+    RN_LETTERS = 'IVXLCDM'
+    MATH_SYMBOLS = '\(\)\^/\*\+\-'
+
+    def validate_roman_numeral_expression(expression)
+      exp_regex = /^[\(#{RN_LETTERS}][#{RN_LETTERS}#{MATH_SYMBOLS}\s]+[#{RN_LETTERS}\)]$/
+      return true if exp_regex.match?(expression)
 
       raise ArgumentError, "'#{expression}' is not a calculable expression"
     end
@@ -15,7 +19,7 @@ module RomanNumeral
     end
 
     def validate_roman_numeral(roman_numeral)
-      return true if /^[IVXLCDM]+$/.match?(roman_numeral)
+      return true if /^[#{RN_LETTERS}]+$/.match?(roman_numeral)
 
       raise ArgumentError, "'#{roman_numeral}' is not a valid roman numeral"
     end
