@@ -5,7 +5,22 @@ to the terminal when executed.
 
 The program can be executed by running `python fizz_buzz_with_a_pink_flamingo` from the project root or `python .` from inside the `fizz_buzz_with_a_pink_flamingo` directory.
 
-The program defaults to a range of 0 to 100 but takes optional arguments to modify this range. If one argument is given, it is the start of the range when less than 100 and the end when greater. When two arguments are given, the smaller number is the start of the range and the larger number is the end.
+The program defaults to a range of 0 to 100 (inclusive) but takes optional arguments to modify this range. If one argument is given, it is the start of the range when less than 100 and the end when greater. When two arguments are given, the smaller number is the start of the range and the larger number is the end.
+
+These are a few examples of how this can be used:
+```
+$ > python fizz_buzz_with_a_pink_flamingo 5 10
+Flamingo, Fizz, 7, Flamingo, Fizz, Buzz
+
+$ > python fizz_buzz_with_a_pink_flamingo 5 10
+Flamingo, Flamingo, Flamingo, Flamingo, 4, Flamingo
+
+$ > python fizz_buzz_with_a_pink_flamingo 105
+Buzz, 101, Fizz, 103, 104, FizzBuzz
+
+$ > python fizz_buzz_with_a_pink_flamingo 6760 6770
+Buzz, 6761, Fizz, 6763, 6764, Pink Flamingo, 6766, 6767, Fizz, 6769, Buzz
+```
 
 # Response to Task 2
 
