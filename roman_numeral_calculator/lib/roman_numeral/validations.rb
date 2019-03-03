@@ -12,6 +12,19 @@ module RomanNumeral
       raise ArgumentError, "'#{expression}' is not a calculable expression"
     end
 
+    def validate_numerical_expression(expression)
+      return true if %r{^[\d\.\(\)\^/\*\+\-\s]+$}.match?(expression)
+
+      raise ArgumentError, "'#{expression}' is not a purely numerical expression"
+    end
+
+    def validate_integer_result(result)
+      return true if (result % 1).zero?
+
+      raise ArgumentError,
+            'The roman numeral calculator can only process expressions that evaluate to an integer.'
+    end
+
     def validate_string(roman_numeral)
       return true if roman_numeral.is_a? String
 
