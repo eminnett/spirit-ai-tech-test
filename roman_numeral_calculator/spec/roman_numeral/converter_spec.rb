@@ -3,6 +3,7 @@
 require_relative '../spec_helper'
 require_relative '../../lib/roman_numeral/converter'
 
+# nodoc
 module RomanNumeral
   RSpec.describe Converter do
     conversions = [

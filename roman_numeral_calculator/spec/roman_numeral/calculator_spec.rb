@@ -3,6 +3,7 @@
 require_relative '../spec_helper'
 require_relative '../../lib/roman_numeral/calculator'
 
+# nodoc
 module RomanNumeral
   RSpec.describe Calculator do
     describe '.evaluate' do
