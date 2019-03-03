@@ -1,5 +1,6 @@
 import pytest
 import json
+import urllib
 import web_api
 
 @pytest.fixture
@@ -8,7 +9,9 @@ def client():
     client = web_api.app.test_client()
     yield client
 
-fizzbuzz_route = '/api/v1.0/fizzbuzz-with-a-pink-flamingo'
+api_route = '/api/v1.0'
+fizzbuzz_route = api_route + '/fizzbuzz-with-a-pink-flamingo'
+roman_numeral_calculator_route = api_route + '/roman-numeral/calculator/?expression='
 
 def test_root_request(client):
     response = client.get('/')
@@ -40,6 +43,38 @@ def test_fizzbuzz_with_a_pink_flamingo_with_start_and_end(client):
     data = parse_response(client.get(fizzbuzz_route + '/6760/6770'))
     assert data == ['Buzz', '6761', 'Fizz', '6763', '6764', 'Pink Flamingo', '6766', '6767', 'Fizz', '6769', 'Buzz']
 
+
+def test_roman_numeral_calculator(client):
+    expression = '(V + IX) * III'
+    response = client.get(roman_numeral_calculator_route + urllib.parse.quote(expression))
+    data = parse_response(response)
+    assert data == {'expression': expression, 'result': 'XLII'}
+
+
+def test_roman_numeral_calculator_with_unevaluatable_expression(client):
+    expression = '((V + IV)'
+    response = client.get(roman_numeral_calculator_route + urllib.parse.quote_plus(expression))
+    data = parse_response(response)
+    error_message = 'The roman numeral calculator can only process expressions with evaluatable syntax.'
+    assert response.status == '422 UNPROCESSABLE ENTITY'
+    assert data == {'expression': expression, 'error': error_message}
+
+
+def test_roman_numeral_calculator_with_non_integer_result(client):
+    expression = 'V / IV'
+    response = client.get(roman_numeral_calculator_route + urllib.parse.quote_plus(expression))
+    data = parse_response(response)
+    error_message = 'The roman numeral calculator can only process expressions that evaluate to an integer.'
+    assert response.status == '422 UNPROCESSABLE ENTITY'
+    assert data == {'expression': expression, 'error': error_message}
+
+
+def test_roman_numeral_calculator_with_missing_expression(client):
+    response = client.get(roman_numeral_calculator_route)
+    data = parse_response(response)
+    error_message = 'An expression must be provided via the request query string using the "expression" key.'
+    assert response.status == '422 UNPROCESSABLE ENTITY'
+    assert data == {'error': error_message}
 
 def parse_response(response):
     return json.loads(response.get_data(as_text=True))
