@@ -4,6 +4,12 @@ require_relative './validations'
 require_relative './converter'
 
 module RomanNumeral
+  # The Calculator module handles the evaluation of roman numeral mathematical expressions. As long
+  # as the `expression` is a valid roman numeral mathematical expression and the calculated result
+  # is an integer, the calculator will return the result of the expression as a roman numeral.
+  #
+  # Example Usage:
+  # RomanNumeral::Calculator.evaluate('(V + IX) * III') => 'XLII'
   module Calculator
     extend Validations
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module RomanNumeral
+  # The Validations module is a collection of validator helper methods used by other modules in
+  # the RomanNumeral namespace.
   module Validations
     RN_LETTERS = 'IVXLCDM'
     MATH_SYMBOLS = '\(\)\^/\*\+\-'

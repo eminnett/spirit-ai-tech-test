@@ -3,6 +3,11 @@
 require_relative './validations'
 
 module RomanNumeral
+  # The Converter module handles the conversion of roman numerals to integers and vice versa.
+  #
+  # Example Usage:
+  # RomanNumeral::Converter.to_integer('IX') => 9
+  # RomanNumeral::Converter.to_roman_numeral(19) => 'XIX'
   module Converter
     extend Validations
 
