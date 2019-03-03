@@ -46,3 +46,19 @@ The calculator can also be used used from the terminal. This example assumes the
 $ > ruby roman_numeral_calculator.rb "VI / II + IX * III" 
 XXX
 ```
+
+# Response to Task 3
+
+The programs from tasks one and two have been wrapped in a simple Flask web API. The server can be run locally by executing `python ./web_api/web_api.py` from the project root directory. The API can then be accessed by making a request to `http://127.0.0.1:5000/`.
+
+The API includes the following routes:
+```
+'/api/v1.0/fizzbuzz-with-a-pink-flamingo/'
+'/api/v1.0/fizzbuzz-with-a-pink-flamingo/0'
+'/api/v1.0/fizzbuzz-with-a-pink-flamingo/0/100'
+'/api/v1.0/roman-numeral/calculator/?expression=%28V+%2B+IX%29+%2A+III'
+```
+
+The parameters for the `fizzbuzz-with-a-pink-flamingo` are optional with defaults of 0 and 100 just as they are when running the program from the terminal. I wanted to use a RESTful enpoint for the `roman-numeral/calculator/` enpoint but the use of `/` in the expression results in ambiguity when parsing the URL. Using a query string to pass the expression avoids this ambiguity though it does result in inconsistency in how the API is used. Encoding the expression using `urllib.parse` is the only way to ensure the expression is evaluated correctly. Passing the expression as plain text works unless it includes addition. The URL parser in Flask will treat `+` as a space.
+
+The API returns the same results as the two programs as JSON.
