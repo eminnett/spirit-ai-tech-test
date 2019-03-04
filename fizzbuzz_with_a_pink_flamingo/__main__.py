@@ -9,7 +9,7 @@ def execute_fizz_buzz():
 
     start = 0
     end = 100
-    if len(args) > 0:
+    if args:
         start = int(args[0])
     if len(args) > 1:
         end = int(args[1])

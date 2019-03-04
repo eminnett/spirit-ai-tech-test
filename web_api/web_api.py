@@ -1,7 +1,5 @@
 #!flask/bin/python
 """The Web API"""
-import os
-from pathlib import Path
 import subprocess
 import re
 from flask import Flask, request, jsonify
@@ -9,9 +7,8 @@ from flask import Flask, request, jsonify
 app = Flask(__name__) # pylint: disable=invalid-name
 
 API_ROUTE = '/api/v1.0'
-PROJECT_PATH = Path(os.path.dirname(__file__)).parent
-FIZZBUZZ_PROGRAM = os.path.join(PROJECT_PATH, 'fizzbuzz_with_a_pink_flamingo/__main__.py')
-RN_CALCULATOR_PROGRAM = os.path.join(PROJECT_PATH, 'roman_numeral_calculator/roman_numeral_calculator.rb')
+FIZZBUZZ_PROGRAM = '../fizzbuzz_with_a_pink_flamingo/__main__.py'
+RN_CALCULATOR_PROGRAM = '../roman_numeral_calculator/roman_numeral_calculator.rb'
 FIZZBUZZ_ROUTE = API_ROUTE + '/fizzbuzz-with-a-pink-flamingo'
 ROMAN_NUMERAL_ROUTE = API_ROUTE + '/roman-numeral'
 
@@ -65,4 +62,4 @@ def parse_program_output(output):
     return str(output).replace("b'", '').replace("\\n'", '')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

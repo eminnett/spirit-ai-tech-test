@@ -1,8 +1,9 @@
 echo '***** PYTHON TESTS *****'
-pytest -v
+pipenv run python -m pytest -v ..
 echo '***** PYTHON LINTING *****'
-pylint ./**/*.py
+pipenv run python -m pylint ../**/*.py
 echo '***** RUBY TESTS *****'
-bundle exec rspec roman_numeral_calculator
+cd ../roman_numeral_calculator
+bundle exec rspec
 echo '***** RUBY LINTING *****'
 rubocop
