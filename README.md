@@ -1,3 +1,21 @@
+# Setup
+
+The project has been wrapped in a Docker container. All of the commands in this document assume the following two commands have been executed first.
+
+```
+$ > docker build --tag=spirit_ai_tech_test .
+$ > docker run -d -p 5000:5000 --name spirit_ai_tech_test spirit_ai_tech_test 
+```
+
+The working directory inside the Docker cintainer is `web_api`. The commands in this document reflect this. 
+
+When finsihed, these commands will tidy up the container.
+
+```
+$ > docker stop spirit_ai_tech_test
+$ > docker rm spirit_ai_tech_test
+```
+
 # Response to Task 1
 
 The 'FizzBuzz with a Pink Flamingo' program is a simple Python program that prints the output string
@@ -9,16 +27,16 @@ The program defaults to a range of 0 to 100 (inclusive) but takes optional argum
 
 These are a few examples of how this can be used:
 ```
-$ > python fizzbuzz_with_a_pink_flamingo 5 10
+$ > docker exec spirit_ai_tech_test python ../fizzbuzz_with_a_pink_flamingo 5 10
 Flamingo, Fizz, 7, Flamingo, Fizz, Buzz
 
-$ > python fizzbuzz_with_a_pink_flamingo 5 0
+$ > docker exec spirit_ai_tech_test python ../fizzbuzz_with_a_pink_flamingo 5 0
 Flamingo, Flamingo, Flamingo, Flamingo, 4, Flamingo
 
-$ > python fizzbuzz_with_a_pink_flamingo 105
+$ > docker exec spirit_ai_tech_test python ../fizzbuzz_with_a_pink_flamingo 105
 Buzz, 101, Fizz, 103, 104, FizzBuzz
 
-$ > python fizzbuzz_with_a_pink_flamingo 6760 6770
+$ > docker exec spirit_ai_tech_test python ../fizzbuzz_with_a_pink_flamingo 6760 6770
 Buzz, 6761, Fizz, 6763, 6764, Pink Flamingo, 6766, 6767, Fizz, 6769, Buzz
 ```
 
@@ -43,7 +61,7 @@ IRB > RomanNumeral::Calculator.evaluate('(V + IX) * III')
 
 The calculator can also be used used from the terminal. This example assumes the current working director is inside the `roman_numeral_calculator` folder.
 ```
-$ > ruby roman_numeral_calculator.rb "VI / II + IX * III" 
+$ > docker exec spirit_ai_tech_test ruby ../roman_numeral_calculator/roman_numeral_calculator.rb "VI / II + IX * III" 
 XXX
 ```
 
@@ -56,13 +74,17 @@ The API includes the following routes:
 '/api/v1.0/fizzbuzz-with-a-pink-flamingo/'
 '/api/v1.0/fizzbuzz-with-a-pink-flamingo/0'
 '/api/v1.0/fizzbuzz-with-a-pink-flamingo/0/100'
-'/api/v1.0/roman-numeral/calculator/?expression=%28V+%2B+IX%29+%2A+III'
+'/api/v1.0/roman-numeral/calculator/?expression=%28V+%2B+IX%29+%2A+III' # This is the encoded version of '(V + IX) * III'
 ```
 
 The parameters for the `fizzbuzz-with-a-pink-flamingo` are optional with defaults of 0 and 100 just as they are when running the program from the terminal. I wanted to use a RESTful enpoint for the `roman-numeral/calculator/` enpoint but the use of `/` in the expression results in ambiguity when parsing the URL. Using a query string to pass the expression avoids this ambiguity though it does result in inconsistency in how the API is used. Encoding the expression using `urllib.parse` is the only way to ensure the expression is evaluated correctly. Passing the expression as plain text works unless it includes addition. The URL parser in Flask will treat `+` as a space.
 
 The API returns the same results as the two programs as JSON.
 
+# Response to Task 4
+
+There is a good example in my GitHub account of a [sample React application](https://github.com/eminnett/foreign-exchange-explorer) but I don't have an example of Docker usage so I have chosen to go down that route for the fourth task. Networking multiple containers for such a simple project seemed like overkill so I have defined a single docker container to run all of the programs and the Flask web API.
+
 # Testing
 
-All of the test commands can be run in sequence by executing `bash test.sh` from the project root director.
+All of the test commands can be run in sequence by executing `docker exec spirit_ai_tech_test bash test.sh`.
