@@ -17,7 +17,13 @@ module RomanNumeral
       converted_expression = convert_to_numerical_expression(expression.dup)
       result = evaluate_numerical_expression(converted_expression)
       validate_integer_result(result)
-      Converter.to_roman_numeral(result.to_i)
+      evaluation = ''
+      if result.negative?
+        evaluation += '-'
+        result *= -1
+      end
+      evaluation += Converter.to_roman_numeral(result.to_i)
+      evaluation
     end
 
     private_class_method def self.convert_to_numerical_expression(expression)

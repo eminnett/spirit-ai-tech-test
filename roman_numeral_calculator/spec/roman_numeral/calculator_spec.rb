@@ -17,7 +17,8 @@ module RomanNumeral
         ['VI / II + IX * III', 'XXX'],
         ['IV / V * X', 'VIII'],
         ['III^IV', 'LXXXI'],
-        ['III**IV', 'LXXXI']
+        ['III**IV', 'LXXXI'],
+        ['(V - IX) * III', '-XII']
       ]
 
       context 'when given a calculable roman numeral mathematical expression' do
